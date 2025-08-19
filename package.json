@@ -1,0 +1,13 @@
+{
+  "name": "ahorcado_juego",
+  "version": "0.1.0",
+  "private": true,
+  "main": "main.js",
+  "scripts": {
+    "start": "npx electron .",
+    "build": "echo 'no build script'"
+  },
+  "devDependencies": {
+    "electron": "^22.0.0" 
+  }
+}

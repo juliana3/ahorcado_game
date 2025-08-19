@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Ahorcado</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+    <div id="aplicacion">
+        <!-- Pantalla del Menú Principal -->
+        <div id="menu-principal" class="pantalla activa">
+            <div class="contenedor-menu">
+                <h1 class="titulo-principal">🎯 EL AHORCADO</h1>
+                <p class="subtitulo">Selecciona el nivel de dificultad</p>
+                
+                <div class="botones-dificultad">
+                    <button class="boton-dificultad facil" data-dificultad="facil">
+                        <span class="icono">🟢</span>
+                        <span class="texto">FÁCIL</span>
+                        <span class="descripcion">Hasta 4 letras</span>
+                    </button>
+                    
+                    <button class="boton-dificultad medio" data-dificultad="medio">
+                        <span class="icono">🟡</span>
+                        <span class="texto">MEDIO</span>
+                        <span class="descripcion">5 a 6 letras</span>
+                    </button>
+                    
+                    <button class="boton-dificultad dificil" data-dificultad="dificil">
+                        <span class="icono">🔴</span>
+                        <span class="texto">DIFÍCIL</span>
+                        <span class="descripcion">7 o más letras</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pantalla del Juego -->
+        <div id="pantalla-juego" class="pantalla">
+            <div class="contenedor-juego">
+                <div class="cabecera-juego">
+                    <button id="boton-menu" class="boton-secundario">← Menú Principal</button>
+                    <div class="info-juego">
+                        <span id="dificultad-actual" class="etiqueta-dificultad"></span>
+                        <span id="intentos-restantes" class="intentos">Intentos: 6</span>
+                    </div>
+                </div>
+
+                <div class="area-juego">
+                    <div class="seccion-ahorcado">
+                        <div id="dibujo-ahorcado" class="dibujo-ahorcado">
+                            <svg width="200" height="250" viewBox="0 0 200 250">
+                                <!-- Base -->
+                                <line x1="10" y1="230" x2="150" y2="230" stroke="#8B4513" stroke-width="4"/>
+                                <!-- Poste vertical -->
+                                <line x1="30" y1="230" x2="30" y2="20" stroke="#8B4513" stroke-width="4"/>
+                                <!-- Poste horizontal -->
+                                <line x1="30" y1="20" x2="120" y2="20" stroke="#8B4513" stroke-width="4"/>
+                                <!-- Cuerda -->
+                                <line x1="120" y1="20" x2="120" y2="50" stroke="#8B4513" stroke-width="2"/>
+                                
+                                <!-- Partes del ahorcado (inicialmente ocultas) -->
+                                <circle id="cabeza" cx="120" cy="60" r="10" stroke="#000" stroke-width="2" fill="none" style="display: none;"/>
+                                <line id="cuerpo" x1="120" y1="70" x2="120" y2="150" stroke="#000" stroke-width="2" style="display: none;"/>
+                                <line id="brazo-izq" x1="120" y1="90" x2="100" y2="120" stroke="#000" stroke-width="2" style="display: none;"/>
+                                <line id="brazo-der" x1="120" y1="90" x2="140" y2="120" stroke="#000" stroke-width="2" style="display: none;"/>
+                                <line id="pierna-izq" x1="120" y1="150" x2="100" y2="180" stroke="#000" stroke-width="2" style="display: none;"/>
+                                <line id="pierna-der" x1="120" y1="150" x2="140" y2="180" stroke="#000" stroke-width="2" style="display: none;"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="seccion-palabra">
+                        <div id="palabra-adivinada" class="palabra-display"></div>
+                        <div id="letras-incorrectas" class="letras-incorrectas">
+                            <span class="etiqueta">Letras incorrectas:</span>
+                            <span id="lista-incorrectas"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pantalla de Fin de Juego -->
+        <div id="pantalla-fin" class="pantalla">
+            <div class="contenedor-fin">
+                <div id="resultado-juego" class="resultado">
+                    <div id="icono-resultado" class="icono-resultado"></div>
+                    <h2 id="mensaje-resultado" class="mensaje-resultado"></h2>
+                    <p id="palabra-correcta" class="palabra-correcta"></p>
+                </div>
+                
+                <div class="botones-fin">
+                    <button id="boton-jugar-otra" class="boton-principal">Jugar Otra Vez</button>
+                    <button id="boton-menu-fin" class="boton-secundario">Menú Principal</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="palabras.js"></script>
+    <script src="renderer.js"></script>
+</body>
+</html>
