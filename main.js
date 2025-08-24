@@ -16,7 +16,6 @@ function crearVentana() {
       contextIsolation: false,
       enableRemoteModule: true,
     },
-    icon: path.join(__dirname, "assets/icon.png"), // Opcional: agregar icono
     title: "El Ahorcado",
     show: false, // No mostrar hasta que esté listo
   })
@@ -45,16 +44,12 @@ app.whenReady().then(crearVentana)
 
 // Salir cuando todas las ventanas estén cerradas
 app.on("window-all-closed", () => {
-  // En macOS es común que las aplicaciones permanezcan activas
-  // hasta que el usuario las cierre explícitamente con Cmd + Q
   if (process.platform !== "darwin") {
     app.quit()
   }
 })
 
 app.on("activate", () => {
-  // En macOS es común recrear una ventana cuando se hace clic en el icono
-  // del dock y no hay otras ventanas abiertas
   if (BrowserWindow.getAllWindows().length === 0) {
     crearVentana()
   }
