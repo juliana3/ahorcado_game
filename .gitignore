@@ -1,0 +1,15 @@
+# Dependencias
+node_modules/
+
+# Carpetas de salida de builds
+dist/
+out/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# basuras del sistema
+.DS_Store
+Thumbs.db

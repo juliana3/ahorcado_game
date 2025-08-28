@@ -4,10 +4,28 @@
   "private": true,
   "main": "main.js",
   "scripts": {
-    "start": "npx electron .",
-    "build": "echo 'no build script'"
-  },
+  "start": "electron .",
+  "dist": "electron-builder"
+},
   "devDependencies": {
-    "electron": "^22.0.0" 
+    "electron": "^22.0.0",
+    "electron-builder": "^26.0.12",
+    "electron-packager": "^17.1.2"
+  },
+  "build": {
+  "appId": "com.tuusuario.ahorcado",
+  "productName": "AhorcadoJuego",
+  "files": [
+    "**/*"
+  ],
+  "win": {
+    "target": "nsis"
+  },
+  "linux": {
+    "target": ["AppImage", "deb"]
+  },
+  "mac": {
+    "target": "dmg"
   }
+}
 }
