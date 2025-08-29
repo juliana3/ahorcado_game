@@ -8,8 +8,6 @@ let estadoJuego = {
   juegoTerminado: false,
 }
 
-// Importo las funciones del archivo palabras.js
-const { ipcRenderer } = require('electron');
 
 
 // Elementos del DOM
@@ -43,33 +41,9 @@ const elementos = {
 
 // Abecedario español
 const ABECEDARIO = [
-  "A",
-  "B",
-  "C",
-  "D",
-  "E",
-  "F",
-  "G",
-  "H",
-  "I",
-  "J",
-  "K",
-  "L",
-  "M",
-  "N",
-  "Ñ",
-  "O",
-  "P",
-  "Q",
-  "R",
-  "S",
-  "T",
-  "U",
-  "V",
-  "W",
-  "X",
-  "Y",
-  "Z",
+  "A","B","C","D","E","F","G","H","I",
+  "J","K","L","M","N","Ñ","O","P","Q",
+  "R","S","T","U","V","W","X","Y","Z",
 ]
 
 // Partes del ahorcado en orden de aparición
@@ -81,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
   inicializarElementos()
   configurarEventListeners()
   mostrarPantalla("menu-principal")
-  console.log("🎯 El Ahorcado - Aplicación iniciada correctamente")
+  console.log("El Ahorcado - Aplicación iniciada correctamente")
 })
 
 // Función para inicializar referencias a elementos del DOM
@@ -100,7 +74,6 @@ function inicializarElementos() {
   elementos.letrasIncorrectasDisplay = document.getElementById("lista-incorrectas")
   elementos.intentosDisplay = document.getElementById("intentos-restantes")
   elementos.dificultadDisplay = document.getElementById("dificultad-actual")
-  elementos.abecedario = document.getElementById("letras-abecedario")
 
   // Botones de navegación
   elementos.botonMenu = document.getElementById("boton-menu")
@@ -113,7 +86,7 @@ function inicializarElementos() {
   elementos.palabraCorrecta = document.getElementById("palabra-correcta")
 }
 
-// Configurar todos los event listeners
+// Configurar todos los event listeners, lo que pasa cuando se hacce click en las cosas
 function configurarEventListeners() {
   // Botones de dificultad
   elementos.botonesDificultad.forEach((boton) => {
@@ -141,20 +114,20 @@ function configurarEventListeners() {
 function mostrarPantalla(nombrePantalla) {
   // Ocultar todas las pantallas
   document.querySelectorAll(".pantalla").forEach((pantalla) => {
-    pantalla.classList.remove("activa")
+    pantalla.classList.remove("activa") //recorre cada pantalle y le saca la clase activa
   })
 
   // Mostrar la pantalla solicitada
   const pantallaObjetivo = document.getElementById(nombrePantalla)
   if (pantallaObjetivo) {
-    pantallaObjetivo.classList.add("activa")
-    console.log(`📱 Cambiando a pantalla: ${nombrePantalla}`)
+    pantallaObjetivo.classList.add("activa") //agrega la clase activa a la pantalla que quiero mostrar
+    console.log(`Cambiando a pantalla: ${nombrePantalla}`)
   }
 }
 
 // Función principal para iniciar un nuevo juego
 function iniciarJuego(dificultad) {
-  console.log(`🎮 Iniciando juego en dificultad: ${dificultad}`)
+  console.log(`Iniciando juego en dificultad: ${dificultad}`)
 
   // Reiniciar estado del juego
   estadoJuego = {
@@ -171,17 +144,16 @@ function iniciarJuego(dificultad) {
 
   // Configurar interfaz del juego
   configurarInterfazJuego()
-  crearAbecedario()
   actualizarDisplay()
   reiniciarDibujoAhorcado()
 
   // Mostrar pantalla de juego
   mostrarPantalla("pantalla-juego")
 
-  console.log(`🔤 Palabra seleccionada: ${estadoJuego.palabraActual}`)
+  console.log(`Palabra seleccionada: ${estadoJuego.palabraActual}`)
 }
 
-// Configurar la interfaz del juego con la información actual
+//actualiza la interfaz del juego con la información del nivel de dificultad pARA que se vea claramente el nivel en el que se esta jugando
 function configurarInterfazJuego() {
   const infoDificultad = obtenerInfoDificultad(estadoJuego.dificultadActual)
 
@@ -190,23 +162,23 @@ function configurarInterfazJuego() {
   elementos.dificultadDisplay.className = `etiqueta-dificultad ${infoDificultad.color}`
 }
 
-// Crear los botones del abecedario. Lo borre a ver que onda
-function crearAbecedario() {}
+
 
 // Manejar la selección de una letra
 function seleccionarLetra(letra) {
+  //si el juego ya termino, corta la funcion , asegura que no s epueda seguir jugando despues de ganar o perder
   if (estadoJuego.juegoTerminado) return
 
   // Comprobar si la letra ya fue intentada (correcta o incorrecta)
   if (estadoJuego.letrasIncorrectas.includes(letra) || estadoJuego.palabraAdivinada.includes(letra)) {
-    console.log(`❕ Letra ya intentada: ${letra}`);
+    console.log(`Letra ya intentada: ${letra}`);
     return; // Salir si la letra ya se usó
   }
 
   // Verificar si la letra está en la palabra
   if (estadoJuego.palabraActual.includes(letra)) {
     // Letra correcta
-    console.log(`✅ Letra correcta: ${letra}`)
+    console.log(`Letra correcta: ${letra}`)
 
     // Actualizar palabra adivinada
     for (let i = 0; i < estadoJuego.palabraActual.length; i++) {
@@ -216,20 +188,20 @@ function seleccionarLetra(letra) {
     }
 
     // Verificar si se completó la palabra
-    if (!estadoJuego.palabraAdivinada.includes("_")) {
+    if (!estadoJuego.palabraAdivinada.includes("_")) { //si no incluye _ entonces esta adivinada
       terminarJuego(true) // Victoria
     }
   } else {
     // Letra incorrecta
-    console.log(`❌ Letra incorrecta: ${letra}`)
+    console.log(`Letra incorrecta: ${letra}`)
 
     estadoJuego.letrasIncorrectas.push(letra)
-    estadoJuego.intentosRestantes--
+    estadoJuego.intentosRestantes-- //resta 1
 
     // Dibujar siguiente parte del ahorcado
     dibujarSiguienteParteAhorcado()
 
-    // Verificar si se acabaron los intentos
+    // Verificar si se terminaron los intentos
     if (estadoJuego.intentosRestantes <= 0) {
       terminarJuego(false) // Derrota
     }
@@ -262,13 +234,13 @@ function actualizarDisplay() {
 
 // Dibujar la siguiente parte del ahorcado
 function dibujarSiguienteParteAhorcado() {
-  const parteIndex = 6 - estadoJuego.intentosRestantes - 1
+  const parteIndex = 6 - estadoJuego.intentosRestantes - 1 //esto determina que parte mostrar segun los errores
   if (parteIndex >= 0 && parteIndex < PARTES_AHORCADO.length) {
-    const parteId = PARTES_AHORCADO[parteIndex]
-    const elemento = document.getElementById(parteId)
+    const parteId = PARTES_AHORCADO[parteIndex] //obtiene el id de la parte a mostrar
+    const elemento = document.getElementById(parteId) //busca el elemento en el DOM por su id
     if (elemento) {
-      elemento.style.display = "block"
-      console.log(`🎨 Dibujando parte del ahorcado: ${parteId}`)
+      elemento.style.display = "block" // se hace visible la parte del ahorcado
+      console.log(`Dibujando parte del ahorcado: ${parteId}`)
     }
   }
 }
@@ -278,7 +250,7 @@ function reiniciarDibujoAhorcado() {
   PARTES_AHORCADO.forEach((parteId) => {
     const elemento = document.getElementById(parteId)
     if (elemento) {
-      elemento.style.display = "none"
+      elemento.style.display = "none" //oculta las partes del ahorcado antes de empezar un nuevo juego
     }
   })
 }
@@ -287,18 +259,13 @@ function reiniciarDibujoAhorcado() {
 function terminarJuego(victoria) {
   estadoJuego.juegoTerminado = true
 
-  console.log(`🏁 Juego terminado - ${victoria ? "Victoria" : "Derrota"}`)
-
-  // Deshabilitar todos los botones de letras
-  document.querySelectorAll(".letra-boton").forEach((boton) => {
-    boton.disabled = true
-  })
+  console.log(`Juego terminado - ${victoria ? "Victoria" : "Derrota"}`)
 
   // Configurar pantalla de fin de juego
   setTimeout(() => {
     configurarPantallaFin(victoria)
     mostrarPantalla("pantalla-fin")
-  }, 1500) // Pequeña pausa para que el usuario vea el resultado
+  }, 1500) // pausa para que el usuario vea el resultado. Espera 1.5 segunods antes de mostrar la pantalla de fin
 }
 
 // Configurar la pantalla de fin de juego
@@ -318,38 +285,17 @@ function configurarPantallaFin(victoria) {
   }
 }
 
-// Función de utilidad para logging del estado del juego
-function mostrarEstadoJuego() {
-  console.log("🎯 Estado actual del juego:", {
-    palabra: estadoJuego.palabraActual,
-    adivinada: estadoJuego.palabraAdivinada.join(""),
-    incorrectas: estadoJuego.letrasIncorrectas,
-    intentos: estadoJuego.intentosRestantes,
-    dificultad: estadoJuego.dificultadActual,
-    terminado: estadoJuego.juegoTerminado,
-  })
-}
+
 
 // Función para manejar teclas del teclado 
 document.addEventListener("keydown", (e) => {
   if (estadoJuego.juegoTerminado) return
 
-  const tecla = e.key.toUpperCase()
+  const tecla = e.key.toUpperCase() //convierte a mayus
 
-  // Solo procesar letras del abecedario
+  //se fuja que este en el abeceddario y que no haya sido usada antes
   if (ABECEDARIO.includes(tecla) && !estadoJuego.letrasIncorrectas.includes(tecla) && !estadoJuego.palabraAdivinada.includes(tecla)) {
     seleccionarLetra(tecla);
   }
 })
 
-// Manejo de errores globales
-window.addEventListener("error", (e) => {
-  console.error("❌ Error en la aplicación:", e.error)
-})
-
-// Función para debugging (solo en desarrollo)
-if (process && process.argv && process.argv.includes("--dev")) {
-  window.mostrarEstadoJuego = mostrarEstadoJuego
-  window.estadoJuego = estadoJuego
-  console.log("🔧 Modo desarrollo activado - Funciones de debug disponibles")
-}

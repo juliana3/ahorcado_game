@@ -13,14 +13,17 @@
     "electron-packager": "^17.1.2"
   },
   "build": {
-  "appId": "com.tuusuario.ahorcado",
-  "productName": "AhorcadoJuego",
+    "appId": "com.tuusuario.ahorcado",
+    "productName": "AhorcadoJuego",
+    "win": {
+      "target": "nsis",
+      "forceCodeSigning": false,
+      "signAndEditExecutable": false
+    }
+  },
   "files": [
     "**/*"
   ],
-  "win": {
-    "target": "nsis"
-  },
   "linux": {
     "target": ["AppImage", "deb"]
   },
@@ -28,4 +31,4 @@
     "target": "dmg"
   }
 }
-}
+

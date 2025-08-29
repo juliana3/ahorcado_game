@@ -86,9 +86,9 @@ const baseDatosPalabras = {
 
 // Función para obtener una palabra aleatoria según la dificultad
 function obtenerPalabraAleatoria(dificultad) {
-  const palabras = baseDatosPalabras[dificultad]
+  const palabras = baseDatosPalabras[dificultad] //obtiene el array de palabras según la dificultad
   const indiceAleatorio = Math.floor(Math.random() * palabras.length)
-  return palabras[indiceAleatorio]
+  return palabras[indiceAleatorio] //devuelve la palabra en el indice aleatorio
 }
 
 // Función para obtener información sobre la dificultad
@@ -99,5 +99,5 @@ function obtenerInfoDificultad(dificultad) {
     dificil: { nombre: "DIFÍCIL", color: "dificil", descripcion: "7 o más letras" },
   }
 
-  return info[dificultad]
+  return info[dificultad] //retorna la info para mostrar en la interfaz segun la dificultad seleccionada
 }
