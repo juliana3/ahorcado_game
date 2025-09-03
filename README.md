@@ -1,4 +1,5 @@
 # AhorcadoJuego 
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/juliana3/ahorcado_game)
 
 ## Description
 
@@ -69,3 +70,4 @@ Contributions are welcome! Here's how you can contribute:
 [No license file was found in the repository.]
 
 This project is open source and available for anyone to use and modify.  Consider adding a license file (e.g., MIT, Apache 2.0) to clarify the terms of use.
+
