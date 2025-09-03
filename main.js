@@ -28,11 +28,6 @@ function crearVentana() {
     ventanaPrincipal.show()
   })
 
-  // Abrir DevTools en modo desarrollo
-  if (process.argv.includes("--dev")) {
-    ventanaPrincipal.webContents.openDevTools()
-  }
-
   // Emitido cuando la ventana se cierra
   ventanaPrincipal.on("closed", () => {
     ventanaPrincipal = null
