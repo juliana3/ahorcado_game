@@ -65,9 +65,6 @@ Contributions are welcome! Here's how you can contribute:
 3.  **Make your changes** and ensure they are well-tested.
 4.  **Submit a pull request** with a clear description of your changes.
 
-## License
 
-[No license file was found in the repository.]
 
-This project is open source and available for anyone to use and modify.  Consider adding a license file (e.g., MIT, Apache 2.0) to clarify the terms of use.
 
